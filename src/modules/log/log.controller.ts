@@ -5,6 +5,7 @@ import { LogService } from './log.service';
 
 import { FindByIPDto } from './dto/find-by-ip.dto';
 import { RealIP } from 'nestjs-real-ip';
+import { LOGSUCCESS_BODY } from 'src/schemas/log.schema';
 
 @ApiTags('Transaction Log')
 @Controller('log')
@@ -21,6 +22,7 @@ export class LogController {
   }
 
   @Post('/complete')
+  @ApiBody(LOGSUCCESS_BODY)
   async createSuccesLog(
     @Body() CreateLogDto: CreateLogDto,
     @Headers() header,
