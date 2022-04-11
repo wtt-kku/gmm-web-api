@@ -3,7 +3,6 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { CreateLogDto } from './dto/create-log.dto';
 import { LogService } from './log.service';
 
-import { CREATELOGSCHEMA } from '../../schemas/log.schema';
 import { FindByIPDto } from './dto/find-by-ip.dto';
 import { RealIP } from 'nestjs-real-ip';
 
