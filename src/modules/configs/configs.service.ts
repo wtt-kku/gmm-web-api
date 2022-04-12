@@ -122,6 +122,15 @@ export class ConfigsService {
           }
         } else {
           //IF CHECK LIMIT DISABLE
+          //INSERT LOG (HAPPY)
+          const createLog = await this.logService.createLogNew(
+            getConfigDto,
+            clientData,
+          );
+
+          if (createLog) {
+            return this.sharedService.returnResponse(200, config);
+          }
         }
       } else {
         return this.sharedService.returnResponse(
