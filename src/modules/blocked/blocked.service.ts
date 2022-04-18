@@ -12,7 +12,11 @@ export class BlockedService {
     private readonly sharedService: SharedService,
   ) {}
 
-  async createBlockIP(ip: string, time: number = 180) {
+  async createBlockIP(ip: string, time: number = 10800) {
+    var unblocked_cal = new Date();
+    unblocked_cal.setSeconds(unblocked_cal.getSeconds() + time);
+    var unblocked_time = unblocked_cal.toISOString();
+
     try {
       const checkBlocked = await this.blockedEntity
         .createQueryBuilder('blocked')
@@ -25,9 +29,7 @@ export class BlockedService {
         let blocked = new BlockedEntity();
         blocked.ip_address = ip;
         blocked.blocked_date = new Date().toISOString();
-        blocked.unblocked_date = new Date(
-          new Date().getTime() + time * 60000,
-        ).toISOString();
+        blocked.unblocked_date = unblocked_time;
         const fetch = async () => {
           await this.blockedEntity.update({ id: checkBlocked.id }, blocked);
         };
@@ -36,9 +38,7 @@ export class BlockedService {
         let blocked = new BlockedEntity();
         blocked.ip_address = ip;
         blocked.blocked_date = new Date().toISOString();
-        blocked.unblocked_date = new Date(
-          new Date().getTime() + time * 60000,
-        ).toISOString();
+        blocked.unblocked_date = unblocked_time;
 
         const fetch = async () => {
           await this.blockedEntity.save(blocked);

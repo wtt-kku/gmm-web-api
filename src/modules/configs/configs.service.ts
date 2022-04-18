@@ -102,7 +102,10 @@ export class ConfigsService {
             await this.logService.createLogNew(getConfigDto, clientData, true);
 
             //INSERT IP ADDRESS BLOCK
-            await this.blockedService.createBlockIP(clientData.ip);
+            await this.blockedService.createBlockIP(
+              clientData.ip,
+              parseInt(config.limit_ip_block_time),
+            );
             //RETURN RES LIMIT TRANSACTION
             return this.sharedService.returnResponse(
               404,
